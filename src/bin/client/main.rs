@@ -1,7 +1,9 @@
+use chot::{config::SOCKET_ADDR, streamer::Streamer};
+
 fn main() -> anyhow::Result<()> {
-    let addr = "127.0.0.1:8080";
-    let tcp_conn = std::net::TcpStream::connect(addr)?;
+    let stream = std::net::TcpStream::connect(SOCKET_ADDR)?;
     println!("Successfully connected to server");
-    println!("tcp_conn: {:?}", tcp_conn);
+    //println!("stream: {:?}", stream);
+    Streamer::stream(stream)?;
     Ok(())
 }

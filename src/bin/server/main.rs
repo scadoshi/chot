@@ -1,10 +1,12 @@
+use chot::{config::SOCKET_ADDR, streamer::Streamer};
+
 fn main() -> anyhow::Result<()> {
-    let addr = "127.0.0.1:8080";
-    let listener = std::net::TcpListener::bind(addr)?;
-    println!("Server listening on {:?}", addr);
-    let (tcp_stream, socket_addr) = listener.accept()?;
+    let listener = std::net::TcpListener::bind(SOCKET_ADDR)?;
+    println!("Server listening on {:?}", SOCKET_ADDR);
+    let (stream, _socket_addr) = listener.accept()?;
     println!("Client successfully connected");
-    println!("tcp_stream: {:?}", tcp_stream);
-    println!("socket_addr: {:?}", socket_addr);
+    //println!("stream: {:?}", stream);
+    //println!("socket_addr: {:?}", socket_addr);
+    Streamer::stream(stream)?;
     Ok(())
 }
